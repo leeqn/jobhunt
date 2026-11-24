@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from typing import Optional
-from templates.base import BaseParser
+from .base import BaseParser
 
 class DouParser(BaseParser):
     @property

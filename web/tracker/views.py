@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
 
-from models import Vacancy
-from tasks import scrape_vacancies_task
+from .models import Vacancy
+from .tasks import scrape_vacancies_task
 
 
 def vacancy_list(request):

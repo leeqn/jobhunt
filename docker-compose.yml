@@ -4,7 +4,7 @@ services:
     container_name: job_hunt_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-job_hunt}
+      POSTGRES_DB: ${POSTGRES_DB:-web}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
@@ -12,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-job_hunt}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-web}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -43,7 +43,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-job_hunt}
+      POSTGRES_DB: ${POSTGRES_DB:-web}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_HOST: db
@@ -59,11 +59,11 @@ services:
     build: .
     container_name: job_hunt_worker
     restart: unless-stopped
-    command: celery -A job_hunt worker -l info
+    command: celery -A web worker -l info
     volumes:
       - .:/app
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-job_hunt}
+      POSTGRES_DB: ${POSTGRES_DB:-web}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_HOST: db
@@ -79,11 +79,11 @@ services:
     build: .
     container_name: job_hunt_beat
     restart: unless-stopped
-    command: celery -A job_hunt beat -l info
+    command: celery -A web beat -l info
     volumes:
       - .:/app
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-job_hunt}
+      POSTGRES_DB: ${POSTGRES_DB:-web}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_HOST: db

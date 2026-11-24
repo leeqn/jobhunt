@@ -3,7 +3,7 @@ import asyncio
 from typing import Optional
 from bs4 import BeautifulSoup
 from curl_cffi.requests import AsyncSession
-from templates.base import BaseParser
+from .base import BaseParser
 
 
 class RobotaParser(BaseParser):

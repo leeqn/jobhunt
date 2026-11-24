@@ -9,7 +9,6 @@ class Vacancy(models.Model):
     found_skills = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = "vacancies"
         ordering = ["-id"]
 

@@ -1,6 +1,6 @@
 import asyncio
-from .templates.dou import DouParser
-from .templates.robota import RobotaParser
+from .fetch_sources.dou import DouParser
+from .fetch_sources.robota import RobotaParser
 from urllib.parse import quote
 
 PARSER_REGISTRY = {
@@ -9,7 +9,7 @@ PARSER_REGISTRY = {
 }
 
 
-async def run_scrappers(query:str="python"):
+async def run_scrapers(query:str="python"):
     selected_sites = list(PARSER_REGISTRY.keys())
     tasks = []
     for site_key in selected_sites:
@@ -22,4 +22,4 @@ async def run_scrappers(query:str="python"):
     await asyncio.gather(*tasks)
 
 if __name__ == "__main__":
-    asyncio.run(run_scrappers())
+    asyncio.run(run_scrapers())
